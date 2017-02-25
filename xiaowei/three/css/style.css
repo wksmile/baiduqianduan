@@ -1,11 +1,10 @@
 body {
-	background-color: #eee;
-	padding: 20px;
 	margin: 0;
 }
 
 .clear {
 	clear: both;
+	border: 0;
 }
 
 img {
@@ -14,10 +13,14 @@ img {
 	width: 80px;
 }
 
-.left,
-.middle,
-.right {
+div {
 	border: 1px solid #999;
+	margin: 20px;
+	background-color: #fff;
+}
+
+.father {
+	background-color: #eee;
 }
 
 .left {
@@ -34,10 +37,9 @@ img {
 }
 
 .middle {
-	float: left;
 	position: absolute;
-	margin-left: 222px;
-	margin-right: 162px;
+	margin-left: 242px;
+	margin-right: 182px;
 	padding: 20px;
 }
 
