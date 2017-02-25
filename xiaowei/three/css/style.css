@@ -1,0 +1,61 @@
+body {
+	background-color: #eee;
+	padding: 20px;
+	margin: 0;
+}
+
+.clear {
+	clear: both;
+}
+
+img {
+	padding: 20px;
+	height: 80px;
+	width: 80px;
+}
+
+.left,
+.middle,
+.right {
+	border: 1px solid #999;
+}
+
+.left {
+	width: 200px;
+	float: left;
+}
+
+.left img {
+	float: left;
+}
+
+.left p {
+	text-align: center;
+}
+
+.middle {
+	float: left;
+	position: absolute;
+	margin-left: 222px;
+	margin-right: 162px;
+	padding: 20px;
+}
+
+.right {
+	width: 120px;
+	float: right;
+}
+
+.right img {
+	padding-top: 0;
+}
+
+ul,ol,li {
+	list-style-type: none;
+	padding: 0;
+}
+
+
+
+
+
