@@ -1,0 +1,43 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>Task4定位和居中问题</title>
+<style type="text/css">
+	.center {
+		height: 200px;
+		width: 400px;
+		background-color: #ccc;
+		margin: auto;
+		position: relative;
+		top: 50%;
+		margin-top: -100px;
+	}
+
+	.left-top {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		background-color: #fc0;
+		width: 50px;
+		height: 50px;
+		border-bottom-right-radius: 50px;
+	}
+
+	.right-bottom {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		background-color: #fc0;
+		width: 50px;
+		height: 50px;
+		border-top-left-radius: 50px;
+	}
+</style>
+</head>
+<body>
+	<div class="center">
+		<div class="left-top"></div>
+		<div class="right-bottom"></div>
+	</div>
+</body>
+</html>
