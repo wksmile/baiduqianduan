@@ -17,6 +17,10 @@ html {
 	position: relative;
 }
 
+.clear {
+	clear: both;
+}
+
 .top {
 	width: 100%;
 	border-bottom: 2px solid #938e8c;
@@ -41,9 +45,18 @@ html {
 	margin: 3px;
 }
 
+.top span {
+	font: 12px "黑体";
+	color: #d45d5c;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
 .first {
 	box-sizing :content-box;
 	margin: 34px 0;
+	height: 301px;
 }
 
 .image {
@@ -78,6 +91,7 @@ html {
 	width: 203px;
 	float: right;
 	border-top: 2px solid #cc8091;
+	position: relative;
 }
 
 .about span {
@@ -102,16 +116,52 @@ html {
 	font-size: 24px;
 }
 
-.about span:nth-child(4) {
+.about p {
 	font: 12px #676767 "楷体";
-	margin: 5px 0;
+	line-height: 10px;
 }
 
 .about span:nth-child(5) {
 	font-size: 116px;
 	color: #75b86b;
 	font-style: oblique;
-	margin-left: -20px;
+	margin-left: -23px;
+}
+
+#css-version {
+	height: 55px;
+	font-family: "微软雅黑";
+	color: rgb(204,128,145);
+}
+
+#css-left {
+	height: 55px;
+	float: left;
+	font-size: 55px;
+	line-height: 55px;
+}
+
+#css-right {
+	height: 33px;
+	float: left;
+	margin: 18px 0 0 10px;
+}
+
+#css-right p {
+	font-size: 21px;
+	line-height: 21px;
+	margin: 0;
+}
+
+#css-right span {
+	display: block;
+	font-size: 12px;
+	line-height: 12px;
+}
+
+.what {
+	width: 741px;
+	height: 150px;
 }
 
 .title p{
@@ -143,7 +193,8 @@ html {
 }
 
 .the {
-	overflow: auto;
+	border-bottom: 1px solid #938e8c;
+	color:  #938e8c;
 	position: relative;
 	margin-top: 70px;
 }
@@ -254,20 +305,81 @@ html {
 }
 
 .zerol {
+	box-sizing : border-box;
 	width: 260px;
 	height: 160px;
 	background-color: #d45d5c;
 	position: absolute;
 	bottom: 0;
 	left: 0;
+	padding: 37px 10px;
 }
 
-.zerol span {
+.zerol div {
 	font-size: 110px;
 	font-family: "微软雅黑";
 	color: #ffffff;
 	height: 86px;
+	line-height: 86px;
 	display: inline-block;
 	border-right: 2px solid;
+	padding-right: 4px;
+	float: left;
 }
 
+.zerol ul {
+	padding:0;
+	margin: 0;
+	float: left;
+	list-style: none;
+	margin: 10px 0 0 3px;
+	color: #ffffff;
+	font-size: 12px;
+	font-family: "黑体";
+}
+
+.zerol ul li:nth-child(1),
+.zerol ul li:nth-child(2) {
+	font: 21px "黑体";
+	font-style: oblique;
+	line-height: 24px;
+}
+
+.redbox-right {
+	height: 160px;
+	margin-left: 260px;
+	padding: 15px 20px 0 15px;
+	font-size: 14px;
+	font-family: "黑体";
+}
+
+.redbox-right span {
+	font-size: 72px;
+	color: #d45d5c;
+}
+
+.redbox-right span:first-child {
+	position: relative;
+	margin-top: 16px;
+	margin-left: -40px;
+	float: left;
+	line-height: 0;
+	left: 0;
+}
+
+.redbox-right span:last-child {
+	position: relative;
+	margin-top: 35px;
+	margin-right: -40px;
+	float: right;
+	line-height: 0;
+	left: 0;
+}
+
+.footer {
+	font: 12px "黑体";
+	color: #d45d5c;
+	position: absolute;
+	bottom: -18px;
+	right: 0;
+}
