@@ -1,0 +1,86 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 04</title>
+  </head>
+  <style>
+  	.block {
+  		background-color: #ff0000;
+  		height: 40px;
+  		margin: 10px;
+  		padding: 10px;
+  		color: #ffffff;
+  		float: left;
+  		font-weight: bolder;
+  		text-align: center;
+  		line-height: 40px;
+  	}
+  </style>
+<body>
+	<input type="number" id="number"></input>
+	<button id="leftEnter">左侧入</button>
+	<button id="rightEnter">右侧入</button> &nbsp;
+	<button id="leftOut">左侧出</button>
+	<button id="rightOut">右侧处</button>
+	<div id="list"></div>
+<script type="text/javascript">
+	var list = document.getElementById("list");
+	var number = document.getElementById("number");
+
+	//左侧插入
+	function leftEnter(){
+		if (number.value) {
+			var span = document.createElement("span");
+			span.className = "block";
+			span.innerHTML = number.value;
+			list.insertBefore(span,list.childNodes[0]);
+			//点击删除事件
+			span.addEventListener("click",removeSpan,false);
+		};
+	};
+	var onleftEnter = document.getElementById("leftEnter");
+	onleftEnter.addEventListener("click",leftEnter,false);
+
+	//右侧插入
+	function rightEnter(){
+		if (number.value) {
+			var span = document.createElement("span");
+			span.className = "block";
+			span.innerHTML = number.value;
+			list.appendChild(span);
+			span.addEventListener("click",removeSpan,false);
+		};
+	};
+	var onrightEnter = document.getElementById("rightEnter");
+	onrightEnter.addEventListener("click",rightEnter,false);
+
+	//左侧出
+	function leftOut(){
+		var firstChild = list.firstChild;
+		if(firstChild){
+			alert(firstChild.innerHTML);
+			list.removeChild(list.firstChild);
+		}
+	};
+	var onleftOut = document.getElementById("leftOut");
+	onleftOut.addEventListener("click",leftOut,false);
+
+	//右侧出
+	function rightOut(){
+		var lastChild = list.lastChild;
+		if(lastChild){
+			alert(lastChild.innerHTML);
+			list.removeChild(lastChild);
+		}
+	};
+	var onrightOut = document.getElementById("rightOut");
+	onrightOut.addEventListener("click",rightOut,false);
+
+	//点击删除span
+	function removeSpan(event){
+		list.removeChild(event.target);
+	};
+</script>
+</body>
+</html>
