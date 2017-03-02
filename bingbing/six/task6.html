@@ -4,32 +4,128 @@
     <meta charset="utf-8">
     <title>IFE JavaScript Task 04</title>
   </head>
-<style>
-
-  	#text {
+  <style>
+  	#number {
   		width: 400px;
-  		height: 200px;
+  		height: 150px;
+  		box-shadow: 5px 5px 3px 3px #f0f0f0;
   		display: block;
-  		margin: 10px;
+  		margin: 15px;
   	}
 
+  	.block {
+  		background-color: #ff0000;
+  		height: 40px;
+  		margin: 10px;
+  		padding: 10px;
+  		color: #ffffff;
+  		float: left;
+  		font-weight: bolder;
+  		text-align: center;
+  		line-height: 40px;
+  	}
   </style>
-
 <body>
-
-	<textarea id="text" autofocus="autofocus" name="inputText" placeholder="请输入文本"></textarea>
-	<input id="search" type="search" pattern="/[0-9]/" required="required" placeholder="请输入查询的内容">
-	<button id="sButton">查 询</button>
-	
+	<textarea id="number" autofocus="autofocus" name="textContent" require="require"></textarea>
+	<button id="leftEnter">左侧入</button>
+	<button id="rightEnter">右侧入</button> &nbsp;
+	<button id="leftOut">左侧出</button>
+	<button id="rightOut">右侧处</button>
+	<input type="search" id="search">
+	<button id="sButton">搜 索</button>
+	<div id="list"></div>
 <script type="text/javascript">
-	function patter(){
-		var text = document.getElementById("text").value;
+	var list = document.getElementById("list");
+	var number = document.getElementById("number");
 
+	//左侧插入
+	function leftEnter(){
+		var value = number.value;
+		if (value) {
+//回车，逗号（全角半角均可），顿号，空格（全角半角、Tab等）,句号等符号作为不同内容的间隔
+			var textArray = value.split(/[\s,，、.。]+/);
+			for(var i=0; i<textArray.length; i++){
+				var span = document.createElement("span");
+				span.className = "block";
+				span.innerHTML = textArray[i];
+				list.insertBefore(span,list.childNodes[0]);
+				//点击删除事件
+				span.addEventListener("click",removeSpan,false);
+			};
+		};
+	};
+	var onleftEnter = document.getElementById("leftEnter");
+	onleftEnter.addEventListener("click",leftEnter,false);
+
+	//右侧插入
+	function rightEnter(){
+		var value = number.value;
+		if (value) {
+			var textArray = value.split(/[\s,，、.。]+/);
+			for(var i=0; i<textArray.length; i++){		
+			var span = document.createElement("span");
+			span.className = "block";
+			span.innerHTML = textArray[i];
+			list.appendChild(span);
+			span.addEventListener("click",removeSpan,false);
+		};
+		};
+	};
+	var onrightEnter = document.getElementById("rightEnter");
+	onrightEnter.addEventListener("click",rightEnter,false);
+
+	//左侧出
+	function leftOut(){
+		var firstChild = list.firstChild;
+		if(firstChild){
+			alert(firstChild.innerHTML);
+			list.removeChild(list.firstChild);
+		}
+	};
+	var onleftOut = document.getElementById("leftOut");
+	onleftOut.addEventListener("click",leftOut,false);
+
+	//右侧出
+	function rightOut(){
+		var lastChild = list.lastChild;
+		if(lastChild){
+			alert(lastChild.innerHTML);
+			list.removeChild(lastChild);
+		}
+	};
+	var onrightOut = document.getElementById("rightOut");
+	onrightOut.addEventListener("click",rightOut,false);
+
+	//点击删除span
+	function removeSpan(event){
+		list.removeChild(event.target);
 	};
 
+	//搜索输入框的内容，并定义一个数组存储设置了背景色的span块
+	var spanBlock = [];
+	function search(){
+		//把输入框的内容存在变量中
+		var sValue = document.getElementById("search").value;
+		//点击搜索清除上一次改变背景的span块
+		console.log(spanBlock);
+		if (spanBlock) {
+			for(var i in spanBlock) 
+				spanBlock[i].setAttribute("style","background-color:#ff0000");
+		};
+		spanBlock = [];
+		//循环查找所有的span块中的内容，把匹配的块背景改变
+		if (sValue) {
+			var span = list.getElementsByTagName("span");
+			for (var i = 0; i < span.length; i++) {
+				if( span[i].textContent.indexOf(sValue) >= 0 ){
+					span[i].style.backgroundColor = "#00ff00";
+					spanBlock.push(span[i]);
+				};
+			};
+		};
+	};
 	var sButton = document.getElementById("sButton");
-	sButton.addEventListener("click",patter,false);
+	sButton.addEventListener("click",search,false);
 </script>
-
 </body>
 </html>
