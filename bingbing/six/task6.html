@@ -1,0 +1,35 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 04</title>
+  </head>
+<style>
+
+  	#text {
+  		width: 400px;
+  		height: 200px;
+  		display: block;
+  		margin: 10px;
+  	}
+
+  </style>
+
+<body>
+
+	<textarea id="text" autofocus="autofocus" name="inputText" placeholder="请输入文本"></textarea>
+	<input id="search" type="search" pattern="/[0-9]/" required="required" placeholder="请输入查询的内容">
+	<button id="sButton">查 询</button>
+	
+<script type="text/javascript">
+	function patter(){
+		var text = document.getElementById("text").value;
+
+	};
+
+	var sButton = document.getElementById("sButton");
+	sButton.addEventListener("click",patter,false);
+</script>
+
+</body>
+</html>
