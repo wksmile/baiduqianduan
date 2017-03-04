@@ -1,0 +1,80 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title>task7</title>
+	<meta charset="utf-8">
+<style type="text/css">
+	div {
+		border:1px #000000 solid;
+		margin: 20px;
+		display: inline-block;
+	}
+	.last {
+		height: 50px;
+		min-width: 50px;
+		display: inline-block;
+	}
+	button {
+		margin: 10px;
+	}
+</style>
+</head>
+<body>
+	<div id="root">
+		<div>
+			<div>
+				<div class="last"></div>
+				<div class="last"></div>
+			</div>
+			<div>
+				<div class="last"></div>
+				<div class="last"></div>
+			</div>
+		</div>
+		<div>
+			<div>
+				<div class="last"></div>
+				<div class="last"></div>
+			</div>
+			<div>
+				<div class="last"></div>
+				<div class="last"></div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<button id="preOrder">前序遍历</button>
+	<button id="midOrder">中序遍历</button>
+	<button id="laterOrder">后序遍历</button>
+<script>
+		function preTraverse(){
+			var root = document.getElementById("root");
+			function preOrder(node){
+				if (node) {
+					setTimeout(function(){
+						node.style.backgroundColor = "#00ff00";
+						if (node.children[0]) {
+						node.children[0].backgroundColor = "#ffffff";
+						};
+						if (node.children[1]) {
+							node.children[1].backgroundColor = "#ffffff";
+						};
+					},500);
+
+					if(node.children[0] != null){
+						preOrder(node.children[0]);
+					}
+
+					if (node.children[1] !== null) {
+						preOrder(node.children[1]);
+				}
+				}
+			};
+			preOrder(root);
+	};
+
+var preOrder = document.getElementById("preOrder");
+preOrder.addEventListener("click",preTraverse,false);
+</script>
+</body>
+</html>
