@@ -1,0 +1,193 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title>task7</title>
+	<meta charset="utf-8">
+<style type="text/css">
+
+	div {
+		border:1px #000000 solid;
+		margin: 20px 10px;
+		padding: 5px;
+		display: flex;
+		background-color: #fff;
+		color: #000;
+		font-family: "黑体";
+		font-size: 14px;
+	}
+	button {
+		margin: 10px;
+	}
+	#meaasge {
+		background-color: #00ff00;
+	}
+</style>
+</head>
+<body>
+	<div id="root">
+		Super
+		<div>
+			Use
+			<div>
+				Apple
+				<div>
+					Pear
+				</div>
+				<div>
+					Pig
+				</div>
+				<div>
+					Cola
+				</div>
+				<div>
+					Soccer
+				</div>
+			</div>
+			<div>
+				Phone
+			</div>
+			<div>
+				Student
+				<div>
+					Book
+				</div>
+				<div>
+					School
+				</div>
+			</div>
+		</div>
+		<div>
+			Note
+			<div>
+				Human
+				<div>
+					Code
+				</div>
+				<div>
+					Operate
+				</div>
+				<div>
+					Man
+				</div>
+			</div>
+			<div>
+				Progress
+				<div>
+					Bemen
+					<div>
+						Cot
+					</div>
+				</div>
+				<div>
+					Goss
+				</div>
+			</div>
+		</div>
+		<div>
+			Flash
+		</div>
+	</div>
+	<br>
+	<button id="preOrder">前序遍历</button>
+
+	<button id="laterOrder">后序遍历</button>
+	<input type="search" id="inSearch" placeholder="input search string" autofocus="autofocus">
+	<button id="search">查 询</button>
+	<span id="meaasge"></span>
+<script>
+	var meaasge = document.getElementById("meaasge");
+	var root = document.getElementById("root");
+	var inter = 500;
+	var interTime = 0;
+
+	//遍历并设置背景颜色
+	function setColor(node){
+		setTimeout(function(){
+			node.style.backgroundColor = "45de90";
+		},interTime);
+		interTime += inter;
+		setTimeout(function(){
+			node.style.backgroundColor = "ffffff";
+		},interTime);
+		interTime += inter;
+	};
+
+	//遍历并查找元素
+	function searchEle(node){
+		var value = document.getElementById("inSearch").value;
+		var textNode = node.firstChild;
+		var pString = ''+value+'';
+		var pattern = new RegExp(pString);
+		setTimeout(function(){
+			if (textNode.search(pattern)) {
+				console.log("here");
+				node.style.backgroundColor = "#00ff00";
+			} else {
+				node.style.backgroundColor = "#45de90";
+			}
+		},interTime);
+		interTime += inter;
+		setTimeout(function(){
+			node.style.backgroundColor = "ffffff";
+		},interTime);
+		interTime += inter;
+	};
+
+
+	//前序遍历
+	function preCTraverse(callback){
+		interTime = 0;
+		function preOrder(node){
+			if (node != null) {
+				callback(node);
+				if (node.children){
+					var childNodes = node.children;
+					for (var i = 0; i < childNodes.length; i++) {
+						preOrder( childNodes[i] );
+					};
+					}
+				}
+			};
+		preOrder(root);
+	};
+	//遍历并设置背景颜色
+	function preTraverse(){
+		preCTraverse(setColor);
+	};
+	//前序遍历查找元素
+	function preSearch(){
+		preCTraverse(searchEle);
+	};
+
+	//后序遍历
+	function laterCTraverse(callback){
+		interTime = 0;
+		function laterOrder(node){
+			if (node != null) {
+				if (node.children){
+					var childNodes = node.children;
+					for (var i = 0; i < childNodes.length; i++) {
+						laterOrder(childNodes[i]);
+					};
+					callback(node);
+					}
+				}
+			};
+		laterOrder(root);
+	};
+	//遍历并设置背景颜色
+	function laterTraverse(){
+		laterCTraverse(setColor);
+	};
+
+var preOrder = document.getElementById("preOrder");
+preOrder.addEventListener("click",preTraverse,false);
+
+var laterOrder = document.getElementById("laterOrder");
+laterOrder.addEventListener("click",laterTraverse,false);
+
+var search = document.getElementById("search");
+search.addEventListener("click",preSearch,false);
+</script>
+</body>
+</html>
