@@ -8,9 +8,10 @@
 		border:1px #000000 solid;
 		margin: 20px;
 		display: inline-block;
+		background-color: #fff;
 	}
 	.last {
-		height: 50px;
+		height: 40px;
 		min-width: 50px;
 		display: inline-block;
 	}
@@ -47,34 +48,73 @@
 	<button id="midOrder">中序遍历</button>
 	<button id="laterOrder">后序遍历</button>
 <script>
-		function preTraverse(){
-			var root = document.getElementById("root");
-			function preOrder(node){
-				if (node) {
-					setTimeout(function(){
-						node.style.backgroundColor = "#00ff00";
-						if (node.children[0]) {
-						node.children[0].backgroundColor = "#ffffff";
-						};
-						if (node.children[1]) {
-							node.children[1].backgroundColor = "#ffffff";
-						};
-					},500);
+	var root = document.getElementById("root");
+	var inter = 500;
+	var interTime = 0;
+	function setColor(node){
+		setTimeout(function(){
+			node.style.backgroundColor = "45de90";
+		},interTime);
+		interTime += inter;
+		setTimeout(function(){
+			node.style.backgroundColor = "ffffff";
+		},interTime);
+		interTime += inter;
+	};
 
-					if(node.children[0] != null){
-						preOrder(node.children[0]);
+	function preTraverse(){
+		interTime = 0;
+		function preOrder(node){
+			if (node != null) {
+				setColor(node);
+				if (node.children){
+					var childNodes = node.children;
+					preOrder(childNodes[0]);
+					preOrder(childNodes[1]);
 					}
-
-					if (node.children[1] !== null) {
-						preOrder(node.children[1]);
-				}
 				}
 			};
-			preOrder(root);
+		preOrder(root);
+	};
+
+	function midTraverse(){
+		interTime = 0;
+		function midOrder(node){
+			if (node != null) {
+				if (node.children){
+					var childNodes = node.children;
+					midOrder(childNodes[0]);
+					setColor(node);
+					midOrder(childNodes[1]);
+					}
+				}
+			};
+		midOrder(root);
+	};
+
+	function laterTraverse(){
+		interTime = 0;
+		function laterOrder(node){
+			if (node != null) {
+				if (node.children){
+					var childNodes = node.children;
+					laterOrder(childNodes[0]);
+					laterOrder(childNodes[1]);
+					setColor(node);
+					}
+				}
+			};
+		laterOrder(root);
 	};
 
 var preOrder = document.getElementById("preOrder");
 preOrder.addEventListener("click",preTraverse,false);
+
+var midOrder = document.getElementById("midOrder");
+midOrder.addEventListener("click",midTraverse,false);
+
+var laterOrder = document.getElementById("laterOrder");
+laterOrder.addEventListener("click",laterTraverse,false);
 </script>
 </body>
 </html>
