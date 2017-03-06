@@ -1,0 +1,172 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title>task9</title>
+	<meta charset="utf-8">
+<style type="text/css">
+
+	div {
+		border:1px #000000 solid;
+		margin: 20px 10px;
+		padding: 5px;
+		display: flex;
+		background-color: #fff;
+		color: #000;
+		font-family: "黑体";
+		font-size: 14px;
+	}
+	button {
+		margin: 10px;
+	}
+
+</style>
+</head>
+<body>
+	<div id="root">
+		Super
+		<div>
+			Use
+			<div>
+				Apple
+				<div>
+					Pear
+				</div>
+				<div>
+					Pig
+				</div>
+				<div>
+					Cola
+				</div>
+				<div>
+					Soccer
+				</div>
+			</div>
+			<div>
+				Phone
+			</div>
+			<div>
+				Student
+				<div>
+					Book
+				</div>
+				<div>
+					School
+				</div>
+			</div>
+		</div>
+		<div>
+			Note
+			<div>
+				Human
+				<div>
+					Code
+				</div>
+				<div>
+					Operate
+				</div>
+				<div>
+					Man
+				</div>
+			</div>
+			<div>
+				Progress
+				<div>
+					Bemen
+					<div>
+						Cot
+					</div>
+				</div>
+				<div>
+					Goss
+				</div>
+			</div>
+		</div>
+		<div>
+			Flash
+		</div>
+	</div>
+	<br>
+	<button id="deleteN">删 除</button>
+	<input type="text" id="inputText" placeholder="input string" autofocus="autofocus">
+	<button id="insert">插 入</button>
+<script>
+//未解决的问题，不能再找到元素后暂停遍历，不能再遍历完找不到后显示找不到
+
+	var root = document.getElementById("root");
+
+	//点击某个节点则该节点呈现红色
+	function addEvent(node){
+		node.addEventListener("click",function(event){
+			var target = event.target;
+			target.style.backgroundColor = "#ff0000";
+		},false);
+	};
+
+	//点击删除则删除该节点及其子节点
+	function deleteNode(node){
+		var color = window.getComputedStyle(node,null).backgroundColor;
+		if (color == "rgb(255, 0, 0)") {
+			node.parentNode.removeChild(node);
+		};
+	};
+
+	//点击增加后选中的节点下增加一个子节点，内容为输入框的内容
+	function addChild(node){
+		var color = window.getComputedStyle(node,null).backgroundColor;
+		var inputText = document.getElementById("inputText").value.toString();
+		if (color == "rgb(255, 0, 0)") {
+			var div = document.createElement("div");
+			div.innerHTML = inputText;
+			node.appendChild(div);
+		};
+	};
+	//前序遍历
+    function preCTraverse(callback){
+		function preOrder(node){
+			if (node!=null) {
+				callback(node);
+				if (node.children){
+					var childNodes = node.children;
+					for (var i = 0; i < childNodes.length; i++) {
+						preOrder( childNodes[i] );
+					};
+					}
+				}
+			};
+		preOrder(root);
+	};
+
+	//遍历并设置背景颜色
+	preCTraverse(addEvent);
+
+	//后序遍历
+	function laterCTraverse(callback){
+		interTime = 0;
+		function laterOrder(node){
+			if (node != null) {
+				if (node.children){
+					var childNodes = node.children;
+					for (var i = 0; i < childNodes.length; i++) {
+						laterOrder(childNodes[i]);
+					};
+					callback(node);
+					}
+				}
+			};
+		laterOrder(root);
+	};
+
+//点击删除删除选中过的节点
+var deleteN = document.getElementById("deleteN");
+deleteN.onclick = function(){
+	preCTraverse(deleteNode);
+};
+
+//点击增加子节点内容为输入框中的文本
+var insert = document.getElementById("insert");
+insert.onclick = function(){
+	preCTraverse(addChild);
+};
+</script>
+</body>
+</html>
