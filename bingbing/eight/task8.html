@@ -1,7 +1,7 @@
 <!DOCTYPE>
 <html>
 <head>
-	<title>task7</title>
+	<title>task8</title>
 	<meta charset="utf-8">
 <style type="text/css">
 
@@ -95,10 +95,13 @@
 	<button id="search">查 询</button>
 	<span id="meaasge"></span>
 <script>
+//未解决的问题，不能再找到元素后暂停遍历，不能再遍历完找不到后显示找不到
+
 	var meaasge = document.getElementById("meaasge");
 	var root = document.getElementById("root");
 	var inter = 500;
 	var interTime = 0;
+	var flag = true;
 
 	//遍历并设置背景颜色
 	function setColor(node){
@@ -114,14 +117,14 @@
 
 	//遍历并查找元素
 	function searchEle(node){
-		var value = document.getElementById("inSearch").value;
-		var textNode = node.firstChild;
-		var pString = ''+value+'';
-		var pattern = new RegExp(pString);
+		var value = document.getElementById("inSearch").value.toString();
+		var textNode = node.firstChild.textContent.toString();
+		var pattern = new RegExp(value);
 		setTimeout(function(){
-			if (textNode.search(pattern)) {
-				console.log("here");
-				node.style.backgroundColor = "#00ff00";
+			if (textNode.match(pattern)) {
+				node.style.backgroundColor = "#ff0000";
+				flag = false;
+				alert("找到节点");
 			} else {
 				node.style.backgroundColor = "#45de90";
 			}
@@ -135,10 +138,10 @@
 
 
 	//前序遍历
-	function preCTraverse(callback){
+    function preCTraverse(callback){
 		interTime = 0;
 		function preOrder(node){
-			if (node != null) {
+			if (node!=null) {
 				callback(node);
 				if (node.children){
 					var childNodes = node.children;
@@ -150,6 +153,7 @@
 			};
 		preOrder(root);
 	};
+
 	//遍历并设置背景颜色
 	function preTraverse(){
 		preCTraverse(setColor);
