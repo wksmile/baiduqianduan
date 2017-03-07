@@ -1,0 +1,103 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title>task1</title>
+	<meta charset="utf-8">
+<style type="text/css">
+
+form {
+	margin-top: 100px;
+	margin-left: 150px;
+	width: 50%;
+}
+
+span {
+	font-size: 26px;
+	font-family: "黑体";
+	font-weight: bolder;
+	margin: 0 20px;
+}
+
+input[name="text"] {
+	height: 50px;
+	width: 450px;
+	border: 2px solid #595959;
+	border-radius: 5px;
+	box-shadow: 1px 1px 1px 1px #aeaeae inset;
+	line-height: 50px;
+	font-size: 30px;
+}
+
+input[name="submit"] {
+	height: 50px;
+	width: 100px;
+	background-color: #e5497d;
+	border: 0px;
+	border-radius: 5px;
+	font-size: 30px;
+}
+
+p {
+	color: #aaaaaa;
+	font-size: 24px;
+	margin-left: 250px;
+	font-weight: bold;
+}
+
+</style>	
+</head>
+<body>
+	<form id="form" action="task1.html" method="post">
+		<span>名称</span>
+		<input type="text" id="text" name="text" required="required">
+		<input type="submit" name="submit" id="submit" value="验 证">
+	</form>
+	<p id="alerttxt">必填，长度为4-16个字符</p>
+<script>
+var form = document.getElementById("form");
+var text = document.getElementById("text");
+var submit = document.getElementById("submit");
+var alerttxt = document.getElementById("alerttxt");
+
+function countChar(string){
+	var length = string.length;
+	var realLength = length;
+	for (var i = 0; i < length; i++) {
+		if(  String.charCodeAt(string[i]) > 0xFF){
+			realLength++;
+		}
+	};
+	return realLength;
+};
+
+function valid_required(field){
+	with(field){
+		if (value == null || value == "") {
+			alerttxt.innerHTML = "姓名不能为空";
+			alerttxt.style.color = "#ff0000";
+			style.borderColor = "#ff0000";
+			return false;
+		} else if( countChar(value.toString()) < 4 || countChar(value.toString()) > 16 ) {
+			alerttxt.innerHTML = "长度为4~16个字符";
+			alerttxt.style.color = "#ff0000";
+			style.borderColor = "#595959";
+			return false;
+		} else {
+			return true;
+		}
+	};
+};
+submit.onclick = function(){
+	with(form){
+		if(valid_required(text) == false){
+			text.focus();
+			return false;
+		} else {
+			return true;
+		}
+
+	};
+};
+</script>
+</body>
+</html>
