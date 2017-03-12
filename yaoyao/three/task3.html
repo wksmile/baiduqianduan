@@ -1,0 +1,179 @@
+<!DOCTYPE>
+<html>
+<head>
+
+<title>task3</title>
+
+<meta charset="utf-8"> 
+<style type="text/css">
+
+form {
+	margin-top: 10%;
+	margin-left: 10%;
+}
+
+div {
+	margin: 20px 0px;
+}
+
+div p {
+	width: 150px;
+	text-align: right;
+	display: inline-block;
+	margin-right: 15px;
+	font-size: 20px;
+	font-weight: bolder;
+}
+
+#choice {
+	margin-left: 170px;
+}
+
+label {
+	font-size: 24px;
+	font-weight: bolder;
+	margin-right: 30px;
+}
+
+select,input[type="text"]{
+	width: 250px;
+	height: 40px;
+	margin-right: 20px;
+	font-size: 24px;
+	font-weight: bold;
+	color: #555;
+	border-radius: 5px;
+	border: 2px solid #999;
+	display: none;
+}
+
+input[type="text"] {
+	width: 450px;
+	display: inline-block;
+}
+
+#school select:nth-child(2),
+#school select:nth-child(3){
+	display: inline-block;
+}
+
+#nschool {
+	display: none;
+}
+
+</style>
+</head>
+<body>
+
+<form>
+	<div id="choice">
+		<label>
+			<input type="radio" name="choose" value="ins" checked="checked"> 在校生 
+		</label>
+		<label>
+			<input type="radio" name="choose" value="nos"> 非在校生
+		</label>
+	</div>
+	<div id="school">
+		<p>学校</p>
+		<select>
+			<option value="hubei" selected>湖北</option>
+  			<option value="beijing" >北京</option> 
+  			<option value="shanghai">上海</option>
+  			<option value="zhejiang">浙江</option>
+		</select>
+		<select id="hubei">
+			<option value="wd" selected>武汉大学</option>
+  			<option value="hk" >华中科技大学</option> 
+  			<option value="wl">武汉理工大学</option>
+  			<option value="zhejiang">中国地质大学</option>
+		</select>
+		<select id="beijing">
+			<option value="qh" selected>清华大学</option>
+  			<option value="bd" >北京大学</option> 
+  			<option value="kd">中国矿业大学</option>
+  			<option value="bh">北京航空航天大学</option>
+		</select>
+		<select id="shanghai">
+			<option value="fd" selected>复旦大学</option>
+  			<option value="sj" >上海交通大学</option> 
+  			<option value="tj">同济大学</option>
+  			<option value="hl">华东理工大学</option>
+		</select>
+		<select id="zhejiang">
+			<option value="zd" selected>浙江大学</option>
+  			<option value="hs">杭州师范大学</option> 
+  			<option value="bd">宁波大学</option>
+  			<option value="hd">杭州电子科技大学</option>
+		</select>
+	</div>
+	<div id="nschool">
+		<p>就业单位</p>
+		<input type="text">
+	</div>
+</form>
+
+<script>
+var select = document.getElementsByTagName("select");
+var div = document.getElementsByTagName("div");
+var labelname = document.getElementsByTagName("label");
+
+//获取选择的是在校生还是非在校生的value的值
+function nischool(){
+	var choice = document.getElementsByName("choose");
+	for (var i = 0; i < choice.length; i++) {
+		if(choice[i].checked){
+			return choice[i].value;
+		}
+	};
+};
+
+//根据在校还是非在校生选择显示学校还是单位
+function jobOrSchool(){
+	var ifn = nischool();
+	if (ifn == "ins") {
+		div[1].style.display = "block";
+		div[2].style.display = "none";
+	} else if (ifn == "nos") {
+		div[1].style.display = "none";
+		div[2].style.display = "block";
+	};
+};
+
+//将两个label单选加点击事件，选择不同的显示不同,加入init()
+function labelClick(){
+	for (var i = 0; i < labelname.length; i++) {
+		labelname[i].addEventListener("click",jobOrSchool,false);
+	};
+};
+
+//监听地点的option改变的事件，加入init()
+function placeValue() {
+	var locationV = select[0];
+	locationV.addEventListener("change",difschool,false);
+};
+
+//显示学校城市对应的大小的下拉框
+function difschool(){
+	displaynone();
+	select[select[0].selectedIndex+1].style.display = "inline-block";
+};
+
+//将所有学校的下拉框不显示
+function displaynone(){
+	for (var i = 1; i < select.length; i++) {
+		select[i].style.display = "none";
+	};
+};
+
+
+function init(){
+	labelClick();
+	placeValue();
+};
+
+init();
+
+</script>
+</body>
+</html>
