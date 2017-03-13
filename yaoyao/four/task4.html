@@ -1,0 +1,318 @@
+<!DOCTYPE>
+<html>
+<head>
+
+<title>task4</title>
+<meta charset="utf-8">
+
+<style type="text/css">
+
+table {
+	border-collapse: collapse;
+	position: relative;
+}
+
+table td {
+	width: 40px;
+	height: 44px;
+	border: 2px #ddd solid;
+}
+
+.fline {
+	margin-left: 44px;
+}
+
+.fline span {
+	display: inline-block;
+	width: 44px;   /*表中的每个小方格的大小*/
+	height: 44px;
+	font-size: 20px;
+	font-weight: bolder;
+	text-align: center;
+}
+
+.fvert {
+	float: left;
+	margin-left: 0;
+}
+
+.fvert span {
+	display: block;
+	line-height: 44px;
+}
+
+#btn {
+	margin: 44px 44px;
+}
+
+#btn button {
+	background-color: #fff;
+}
+
+#moveBlock {
+	width: 40px;
+	height: 40px;
+	background-color: red;
+	position: absolute;
+	top: 46px;   /**小方块在表中的位置**/
+	left: 46px;
+}
+
+#moveBlock div {
+	background-color: blue;
+	position: absolute;
+}
+
+/*******内部小方块的位置**********/
+.up {
+	width: 40px;
+	height: 10px;
+	top: 0;
+}
+
+.down {
+	width: 40px;
+	height: 10px;
+	bottom: 0;
+}
+
+.left {
+	width: 10px;
+	height: 40px;
+	left: 0;
+}
+
+.right {
+	width: 10px;
+	height: 40px;
+	right: 0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="fline">
+	<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+	<span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+</div>
+
+<div class="fline fvert">
+	<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+	<span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+</div>
+
+<table>
+	<tr>
+		<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><div id="moveBlock"><div class="down"></div></div></td><td></td>
+	</tr>
+	<tr>
+		<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+	</tr>
+</table>
+
+<div id="btn">
+	<input type="text" id="command"> <button id="orderBtn">执行</button>
+</div>
+
+<p> 输入命令： GO ， TUN LEF ， TUN RIG ， TUN BAC </p>
+
+<script type="text/javascript">
+
+var moveBlock = document.getElementById("moveBlock");
+var inBlock   = moveBlock.firstElementChild;
+
+////////////////////////改变方向的函数
+// 方向向左
+function lef(){
+	inBlock.className = "left";
+};
+
+// 方向向右
+function rig(){
+	inBlock.className = "right";
+};
+
+// 方向向上
+function up(){
+	inBlock.className = "up";
+};
+
+// 方向向下
+function down(){
+	inBlock.className = "down";
+};
+
+// TUN LEF：向左转（逆时针旋转90度）
+function tunlef(){
+	var inclass = inBlock.className;
+	switch(inclass){
+		case "left":
+			down();
+			break;
+		case "right":
+			up();
+			break;
+		case "up":
+			lef();
+			break;
+		case "down":
+			rig();
+			break;
+	};
+};
+
+// TUN RIG：向右转（顺时针旋转90度）
+function tunrig(){
+	var inclass = inBlock.className;
+	switch(inclass){
+		case "left":
+			up();
+			break;
+		case "right":
+			down();
+			break;
+		case "up":
+			rig();
+			break;
+		case "down":
+			lef();
+			break;
+	};
+};
+
+// TUN BAC：向右转（旋转180度）
+function tunbac(){
+	var inclass = inBlock.className;
+	switch(inclass){
+		case "left":
+			setTimeout(up,0);
+			setTimeout(rig,100);
+			break;
+		case "right":
+			setTimeout(down,0);
+			setTimeout(lef,100);
+			break;
+		case "up":
+			setTimeout(rig,0);
+			setTimeout(down,100);
+			break;
+		case "down":
+			setTimeout(lef,0);
+			setTimeout(up,100);
+			break;
+	};
+};
+
+
+//计算返回移动滑块的计算样式的left和top
+function inArea(){
+	var blockStyle = window.getComputedStyle(moveBlock,null);
+	return {
+		left : parseInt(blockStyle.left),
+		top  : parseInt(blockStyle.top)
+	};
+};
+
+function go(){
+	var inclass = inBlock.className;
+	var left    = inArea().left;
+	var top   = inArea().top;
+	switch(inclass){
+		case "left":
+			golef(left);
+			break;
+		case "right":
+			gorig(left);
+			break;
+		case "up":
+			goup(top);
+			break;
+		case "down":
+			godown(top);
+			break;
+	};
+};
+
+// 向左走
+function golef(leftvalue){
+	if (leftvalue > 40 && leftvalue < 400 ) {
+		moveBlock.style.left = leftvalue - 44 + "px";
+	};
+};
+
+// 向右走
+function gorig(leftvalue){
+	if (leftvalue > 0 && leftvalue < 360 ) {
+		moveBlock.style.left = leftvalue + 44 + "px";
+	};
+};
+
+// 向上走
+function goup(topvalue){
+	if (topvalue > 40 && topvalue < 400 ) {
+		moveBlock.style.top = topvalue - 44 + "px";
+	};
+};
+
+// 向上走
+function godown(topvalue){
+	if (topvalue > 0 && topvalue < 360 ) {
+		moveBlock.style.top = topvalue + 44 + "px";
+	};
+};
+
+///////////////////执行命令的函数
+function command(){
+	var orderText = document.getElementById("command").value;
+	switch(orderText){
+		case "GO":
+			go();
+			break;
+		case "TUN LEF":
+			tunlef();
+			break;
+		case "TUN RIG":
+			tunrig();
+			break;
+		case "TUN BAC":
+			tunbac();
+			break;
+		default :
+			break;
+	};
+};
+
+var orderBtn = document.getElementById("orderBtn");
+//监听执行按钮
+orderBtn.addEventListener("click",command,false);
+
+</script>
+</body>
+</html>
