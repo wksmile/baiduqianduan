@@ -1,0 +1,126 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>task6</title>
+<meta charset="utf-8">
+<style type="text/css">
+
+#layer {
+	width: 30%;
+	height: 300px;
+	min-width: 200px;
+	margin: 0px auto;
+	position: relative;
+	top: 50%;
+	margin-top: -150px;
+	background-color: white;
+	border: 2px #555 solid;
+	display: none;
+}
+
+#layer div:first-child {
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	color: #ddd;
+	background-color: #999;
+	font-weight: bolder;
+	border-bottom: 2px #555 solid;
+}
+
+#layer div:nth-child(2) {
+	margin: 20px;
+	font-size: 20px;
+	font-weight: bolder;
+	color: #666;
+}
+
+#layer div:last-child {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	margin: 10px;
+}
+
+#layer div:last-child button {
+	width: 100px;
+	height: 50px;
+	background-color: #999;
+	font: 20px bolder "黑体";
+	color: #ddd;
+}
+
+#showLy {
+	position: absolute;
+	bottom: 0;
+	margin: 15px;
+	width: 100px;
+	height: 50px;
+	line-height: 50px;
+	font: 20px "黑体";
+	color: #6c6c6c;
+	font-weight: bolder;
+}
+
+</style>
+</head>
+<body>
+<div id="layer">
+	<div> &nbsp;这是一个浮出层 </div>
+	<div> 这是一个浮出层</div>
+	<div> <button id="sure"> 确定 </button> <button id="cancel"> 取消 </button></div>
+</div>
+
+<button id="showLy"> 浮出层 </button>
+
+<script type="text/javascript">
+	//  按钮
+	var showLy = document.getElementById("showLy");
+
+	var layer = (function(){
+		var layerid = document.getElementById("layer");
+		var sure    = document.getElementById("sure");
+		var cancel  = document.getElementById("cancel");
+		var body   = document.body;
+
+		function nopower(event){
+			var target = event.target;
+			if (target != layerid) {
+				hide();
+			};
+		};
+
+		body.addEventListener("click",nopower,false);
+
+		sure.addEventListener("click",hide,false);
+
+		cancel.addEventListener("click",hide,false);
+
+		function show(e){
+			layerid.style.display = "block";
+			body.style.backgroundColor = "#555";
+			e.stopPropagation();    //重要的一步，阻止事件扩算
+		};
+
+		function hide(){
+			layerid.style.display = "none";
+			body.style.backgroundColor = "#fff";
+		};
+
+		// 返回一个对象
+		return {
+			show: function(e){
+				show(e);
+			},
+
+			hide: function(){
+				hide();
+			},
+		};
+	})();
+
+showLy.addEventListener("click",layer.show,false); 
+
+</script>
+</body>
+</html>
