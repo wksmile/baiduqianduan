@@ -95,10 +95,54 @@ body {
 	var showLy = document.getElementById("showLy");
 
 	var layer = (function(){
-		var mask = document.getElementById("mask");
+		var mask    = document.getElementById("mask");
 		var layerid = document.getElementById("layer");
 		var sure    = document.getElementById("sure");
 		var cancel  = document.getElementById("cancel");
+		var data = {
+			"innerTop":0,
+			"innerBottom":0,
+			"innerLeft":0,
+			"innerRight":0,
+			"mouseX":0,
+			"mouseY":0,
+			"left":0,
+			"right":0
+		};
+
+		layerid.addEventListener("mousedown",dragMove,false);
+		function dragMove(e){
+			var ev = e || event;
+			ev.stopPropagation();
+			ev.preventDefault();
+			//点击时弹窗距离屏幕左和上的距离
+			data.top = layerid.offsetTop;
+			data.left= layerid.offsetLeft;
+			//点击时，鼠标在layer内的位置
+			data.mouseX = ev.clientX - layerid.offsetLeft;
+			data.mouseY = ev.clientY - layerid.offsetTop;
+			//点击时鼠标在弹窗的内边距
+			data.innerTop = ev.pageY-layerid.offsetTop;
+			if (data.innerTop<50) {
+				document.addEventListener("mousemove",layerMove);
+			};
+			document.onmouseup = unbundle;
+			this.setCapture && this.setCapture();
+		};
+
+		function unbundle(){
+			document.removeEventListener("mousemove",layerMove);
+			document.onmouseup = null;
+			layerid.style.cursor = "default";
+			this.releaseCapture && this.releaseCapture();
+		};
+
+		function layerMove(e){
+			var ev = e || event;
+			layerid.style.cursor = "move";
+			layerid.style.left  = ev.clientX-data.mouseX+"px";
+			layerid.style.top = ev.clientY-data.mouseY+"px";
+		};
 
 		function nopower(event){
 			var target = event.target;
