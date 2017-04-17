@@ -3,41 +3,55 @@
 <head>
 <title>Task4定位和居中问题</title>
 <style type="text/css">
-	.center {
-		height: 200px;
-		width: 400px;
-		background-color: #ccc;
-		margin: auto;
-		position: relative;
-		top: 50%;
-		margin-top: -100px;
-	}
+main {
+  margin: 20px 0;
+}
 
-	.left-top {
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		background-color: #fc0;
-		width: 50px;
-		height: 50px;
-		border-bottom-right-radius: 50px;
-	}
+main div {
+  background: black;
+  color: white;
+  padding: 15px;
+  max-width: 125px;
+  margin: 5px;
+}
 
-	.right-bottom {
-		position: absolute;
-		bottom: 0;
-		right: 0;
-		background-color: #fc0;
-		width: 50px;
-		height: 50px;
-		border-top-left-radius: 50px;
-	}
+.inline-block-center {
+  text-align: center;
+}
+.inline-block-center div {
+  display: inline-block;
+      text-align: left;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
 </style>
 </head>
 <body>
-	<div class="center">
-		<div class="left-top"></div>
-		<div class="right-bottom"></div>
-	</div>
+	<main class="inline-block-center">
+  <div>
+    I'm an element that is block-like with my siblings and we're centered in a row.
+  </div>
+  <div>
+    I'm an element that is block-like with my siblings and we're centered in a row. I have more content in me than my siblings do.
+  </div>
+  <div>
+    I'm an element that is block-like with my siblings and we're centered in a row.
+  </div>
+</main>
+
+<main class="flex-center">
+  <div>
+    I'm an element that is block-like with my siblings and we're centered in a row.
+  </div>
+  <div>
+    I'm an element that is block-like with my siblings and we're centered in a row. I have more content in me than my siblings do.
+  </div>
+  <div>
+    I'm an element that is block-like with my siblings and we're centered in a row.
+  </div>
+</main>
 </body>
 </html>

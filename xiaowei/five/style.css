@@ -161,6 +161,10 @@ input[type="submit"] {
 	font-weight: 700;
 }
 
+input[type="radio"]:checked {
+	color: #ff0000;
+}
+
 footer {
 	background-color: #000;
 	width: 100%;

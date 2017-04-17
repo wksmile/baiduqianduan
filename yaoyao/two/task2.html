@@ -262,8 +262,10 @@ submit.onclick = function(){
 	var nu= number_check(number);
 	if (n && p && pw && e && nu) {
 				alert("提交成功");
+				return true;
 			} else {
 				alert("输入有误");
+				return false;
 			};
 
 };

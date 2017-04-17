@@ -1,0 +1,15 @@
+居中可以设置线高 line-height
+
+学习rem单位
+
+学习h5新的标签 <hgroup> <article> <aside> <figure> <figcaption> <section> <footer> <header>
+
+一个容器中设置text-aligin:center 可以让图片居中
+
+提交列表中提交框左边对齐，可以通过设置margin-left相同，右部的文字部分右边对齐可以设置相同的宽度，然后设置text-aligin:right即可
+
+注意学习table中的border-collapse: collapse;属性
+
+可以通过设置容器里面元素的定位来清除浮动
+
+学习flexbox布局

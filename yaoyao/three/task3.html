@@ -33,6 +33,7 @@ label {
 	font-size: 24px;
 	font-weight: bolder;
 	margin-right: 30px;
+	cursor: pointer;
 }
 
 select,input[type="text"]{
@@ -68,10 +69,16 @@ input[type="text"] {
 <form>
 	<div id="choice">
 		<label>
-			<input type="radio" name="choose" value="ins" checked="checked"> 在校生 
+			<input type="radio" name="choose" value="ins" checked="checked"> 在校生
+			<i class="show">
+				<span></span>
+			</i> 
 		</label>
 		<label>
 			<input type="radio" name="choose" value="nos"> 非在校生
+			<i class="show">
+				<span></span>
+			</i>
 		</label>
 	</div>
 	<div id="school">

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>task7</title>
+<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css">
+<style type="text/css">
+
+body {
+  font-family: Helvetica Neue, Arial, sans-serif;
+  font-size: 14px;
+  color: #444;
+}
+
+table {
+  border: 2px solid #42b983;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+th {
+  background-color: #42b983;
+  color: rgba(255,255,255,0.66);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+td {
+  background-color: #f9f9f9;
+}
+
+th, td {
+  min-width: 120px;
+  padding: 10px 20px;
+}
+
+.arrow {
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+  opacity: 0.66;
+}
+
+.arrow.asc {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #fff;
+}
+
+.arrow.dsc {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #fff;
+}
+
+</style>
+</head>
+
+<body>
+
+<table id="mytable">
+<tr id="myfirst">
+	<td>姓名</td>
+	<td name='1'>语文<span class="arrow asc"></span></td>
+	<td name='2'>数学<span class="arrow asc"></span></td>
+	<td name='3'>英语<span class="arrow asc"></span></td>
+	<td name='4'>总分<span class="arrow asc"></span></td>
+</tr>
+</table>
+
+<script src="./jquery/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+
+var data = [
+	{'name':'小明', 'chinese':80,'math':90,'english':70,'total':0},
+	{'name':'小红', 'chinese':90,'math':60,'english':90,'total':0},
+	{'name':'小亮', 'chinese':60,'math':100,'english':70,'total':0},
+	{'name':'小刚', 'chinese':89,'math':78,'english':99,'total':0},
+	{'name':'小忍', 'chinese':20,'math':86,'english':85,'total':0},
+	{'name':'小凯', 'chinese':40,'math':82,'english':80,'total':0}
+];
+
+function createTable(){
+	var frag = document.createDocumentFragment();
+	data.forEach(function(row){
+		var tr = document.createElement('tr');
+		Object.keys(row).forEach(function(key){
+			var td = document.createElement('td');
+			if(key !== 'total'){
+				td.textContent = String(row[key]);
+			} else {
+				td.textContent = String(row['chinese']+row['math']+row['english']);
+			}
+			tr.appendChild(td);
+		});
+		frag.appendChild(tr);
+	});
+	$('#mytable').append(frag);
+};
+
+// 排序
+function orderTable(e){
+	var name = $(this).attr('name');
+	var n = parseInt(name);
+	console.log(n);
+	var rows = $('#mytable tr');
+//	console.log($('#myfirst').children()[n].children('span'));
+//	$('#myfirst').children()[n].children('span');
+	rows = Array.prototype.slice.call(rows,1);
+		console.log(rows);
+	rows.sort(function(row1,row2){
+		var cell1 = $(row1).children()[n];
+		console.log(cell1);
+		var cell2 = $(row2).children()[n];
+		var val1 = parseInt(cell1.textContent);
+		var val2 = parseInt(cell2.textContent);
+		return val1-val2;
+	});
+	for(var i = 1; i < rows.length; i++) {
+		$('#mytable').append(rows[i]);
+	}
+};
+
+// 给第一行的添加点击事
+$('#myfirst>td[name]').each(function(){
+	$(this).click(orderTable);
+});
+
+function init(){
+	createTable();
+//	$('#myfirst td[name="4"]').trigger('click');
+$('#myfirst td[name="4"]').trigger('click');
+};
+
+init();
+
+});
+
+</script>
+</body>
+</html>
