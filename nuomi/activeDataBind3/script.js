@@ -1,0 +1,111 @@
+ var _event = new Event(); //单独new一个事件的实例，每次new Observe(val);时都为这个_event事件实例.
+ //观察者构造函数
+ function Observe(data) {
+     this.data = data;
+     this.walk(data); //遍历函数
+     this.eventsBus = _event;
+ }
+ let p = Observe.prototype;
+ //用于深层次遍历对象的各个属性
+ p.walk = function(obj, path) {
+     let val;
+     for (let key in obj) {
+         //只对对象本身的属性进行遍历，所以需要用hasOwnProperty进行过滤
+         if (obj.hasOwnProperty(key)) {
+             val = obj[key];
+             if (!path) {
+                 path = key;
+             } else {
+                 path = path + key;
+             }
+             //如果val还不是最底层，这继续遍历
+             if (typeof val === 'object') {
+                 new Observe(val);
+                 if (path) path = path + '.';
+                 this.walk(val, path);
+             }
+         }
+         this.convert(obj, key, val, path);
+     }
+ };
+ //为对象添加get、set属性描述符
+ p.convert = function(obj, key, val, path) {
+     let _this = this;
+     Object.defineProperty(obj, key, {
+         //公共属性描述符
+         enumerable: true,
+         configurable: true,
+         //存取描述符
+         get: function() {
+             console.log('你访问了' + key);
+             return val;
+         },
+         set: function(newVal) {
+             console.log('你设置了' + key);
+             console.log('新的' + key + ' = ' + newVal);
+             val = newVal;
+             //触发$watch监听函数
+             _this.eventsBus.emit(path || key);
+             //如果setter的newval是对象的话
+             if (typeof newVal === 'object') {
+                 new Observe(val);
+             }
+         }
+     });
+ };
+ Observe.prototype.$watch = function(attr, callback) {
+         this.eventsBus.on(attr, callback);
+     }
+     /*事件的实现*/
+     //实现一个事件,构造函数
+ function Event() {
+     this.events = {};
+ }
+ //在构造函数原型上，添加监听事件
+ Event.prototype.on = function(attr, callback) {
+     //一个类型事件可以添加多个
+     if (this.events[attr]) {
+         this.events[attr].push(callback);
+     } else {
+         this.events[attr] = [callback];
+     }
+ };
+ //触发事件
+ Event.prototype.emit = function(path) {
+     const keys = path.split('.');
+     var parent = '';
+     const depPaths = keys.map((key, index) => {
+         if (index == 0) {
+             return key;
+         } else {
+             let str = '';
+             while (index--) {
+                 str = keys[index] + '.' + str;
+             }
+             return str + key;
+         }
+     });
+     depPaths.forEach((path) => {
+         const fns = this.events[path];
+         if (fns && fns.length) {
+             fns.forEach(function(item) {
+                 item();
+             });
+         }
+     });
+ };
+ let data = {
+     name: {
+         firstName: 'shaofeng',
+         lastName: 'liang'
+     },
+     age: 25
+ };
+ let app = new Observe(data);
+ app.$watch('name', function() {
+     console.log('我的姓名发生了变化，可能是姓氏变了，也可能是名字变了。');
+ })
+ app.data.name.firstName = 'hahaha';
+ // 输出：我的姓名发生了变化，可能是姓氏变了，也可能是名字变了。
+ app.data.name.lastName = 'blablabla';
+ // 输出：我的姓名发生了变化，可能是姓氏变了，也可能是名字变了。
