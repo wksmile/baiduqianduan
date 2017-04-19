@@ -9,7 +9,7 @@ Event.prototype = {
         return this;
     },
 
-    addEvent: function(type, callback) {
+    on: function(type, callback) {
         var self = this;
         if (self.element.addEventListener) { // 标准浏览器下
             self.element.addEventListener(type, callback, false);
